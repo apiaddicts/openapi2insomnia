@@ -1,0 +1,70 @@
+{
+  "minimal_endpoints": false,
+  "generate_oneOf_anyOf": false,
+
+  "examples": {
+    "correct": {
+      "string": "goodstring",
+      "integer": 1,
+      "number": 1.0,
+      "boolean": true,
+      "date": "2020-01-01",
+      "date-time": "2020-01-01T23:59:59"
+    },
+    "wrong": {
+      "string": "badstring",
+      "integer": "badstring",
+      "number": "badstring",
+      "boolean": "badboolean",
+      "date": "2020-40-40",
+      "date-time": "2020-40-40T00:00:00"
+    }
+  },
+
+  "environments": [
+    {
+      "name": "DEV",
+      "base_url": "https://dev.petstore.example.com/v1",
+      "host_server_pattern": "%dev%",
+      "token_url": "https://dev.keycloak.example.com/realms/petstore/protocol/openid-connect/token",
+      "authorization_url": "https://dev.keycloak.example.com/realms/petstore/protocol/openid-connect/auth",
+      "client_id": "petstore-client-dev",
+      "client_secret": "",
+      "target_folder": "tests/fixtures/collections",
+      "microcks_headers": true,
+      "read_only": false,
+      "has_scopes": true,
+      "application_token": true,
+      "number_of_scopes": 2
+    },
+    {
+      "name": "PRE",
+      "base_url": "https://pre.petstore.example.com/v1",
+      "token_url": "https://pre.keycloak.example.com/realms/petstore/protocol/openid-connect/token",
+      "authorization_url": "https://pre.keycloak.example.com/realms/petstore/protocol/openid-connect/auth",
+      "client_id": "petstore-client-pre",
+      "client_secret": "",
+      "target_folder": "tests/fixtures/collections",
+      "microcks_headers": false,
+      "read_only": false,
+      "has_scopes": true,
+      "application_token": false,
+      "number_of_scopes": 2
+    },
+    {
+      "name": "PROD",
+      "base_url": "https://petstore.example.com/v1",
+      "host_server_pattern": "%petstore.example.com/v1%",
+      "token_url": "https://keycloak.example.com/realms/petstore/protocol/openid-connect/token",
+      "authorization_url": "https://keycloak.example.com/realms/petstore/protocol/openid-connect/auth",
+      "client_id": "petstore-client-prod",
+      "client_secret": "",
+      "target_folder": "tests/fixtures/collections",
+      "microcks_headers": false,
+      "read_only": true,
+      "has_scopes": false,
+      "application_token": false,
+      "number_of_scopes": 0
+    }
+  ]
+}

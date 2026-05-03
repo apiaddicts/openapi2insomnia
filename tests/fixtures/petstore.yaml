@@ -1,0 +1,338 @@
+openapi: "3.0.3"
+info:
+  title: Petstore
+  description: A sample API for managing a pet store.
+  version: "1.0.0"
+servers:
+  - url: https://dev.petstore.example.com/v1
+    description: Development
+  - url: https://petstore.example.com/v1
+    description: Production
+tags:
+  - name: pets
+    description: Operations about pets
+  - name: store
+    description: Operations about orders
+
+components:
+  securitySchemes:
+    oAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://dev.keycloak.example.com/realms/petstore/protocol/openid-connect/token
+          scopes:
+            pets:read: Read pets
+            pets:write: Write pets
+            store:read: Read orders
+
+  schemas:
+    Pet:
+      type: object
+      required: [name, species]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        species:
+          type: string
+          enum: [dog, cat, bird, rabbit, fish]
+        breed:
+          type: string
+        age:
+          type: integer
+          minimum: 0
+          maximum: 50
+        available:
+          type: boolean
+
+    PetInput:
+      type: object
+      required: [name, species]
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+        species:
+          type: string
+          enum: [dog, cat, bird, rabbit, fish]
+        breed:
+          type: string
+        age:
+          type: integer
+          minimum: 0
+          maximum: 50
+        available:
+          type: boolean
+
+    Order:
+      type: object
+      required: [petId, quantity]
+      properties:
+        id:
+          type: integer
+        petId:
+          type: integer
+        quantity:
+          type: integer
+          minimum: 1
+          maximum: 10
+        status:
+          type: string
+          enum: [placed, approved, delivered]
+
+    OrderInput:
+      type: object
+      required: [petId, quantity]
+      properties:
+        petId:
+          type: integer
+        quantity:
+          type: integer
+          minimum: 1
+          maximum: 10
+
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+
+paths:
+  /pets:
+    post:
+      summary: Create a pet
+      tags: [pets]
+      security:
+        - oAuth2: [pets:write]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PetInput'
+            example:
+              name: Buddy
+              species: dog
+              breed: Labrador
+              age: 3
+              available: true
+      responses:
+        '201':
+          description: Pet created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+
+    get:
+      summary: List pets
+      tags: [pets]
+      security:
+        - oAuth2: [pets:read]
+      parameters:
+        - name: species
+          in: query
+          schema:
+            type: string
+            enum: [dog, cat, bird, rabbit, fish]
+        - name: available
+          in: query
+          schema:
+            type: boolean
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+      responses:
+        '200':
+          description: List of pets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+
+  /pets/{petId}:
+    get:
+      summary: Get a pet
+      tags: [pets]
+      security:
+        - oAuth2: [pets:read]
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '200':
+          description: Pet found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Pet not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    put:
+      summary: Update a pet
+      tags: [pets]
+      security:
+        - oAuth2: [pets:write]
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PetInput'
+      responses:
+        '200':
+          description: Pet updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Pet not found
+
+    delete:
+      summary: Delete a pet
+      tags: [pets]
+      security:
+        - oAuth2: [pets:write]
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '204':
+          description: Pet deleted
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Pet not found
+
+  /store/orders:
+    post:
+      summary: Place an order
+      tags: [store]
+      security:
+        - oAuth2: [store:read]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderInput'
+            example:
+              petId: 1
+              quantity: 1
+      responses:
+        '201':
+          description: Order placed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+
+  /store/orders/{orderId}:
+    get:
+      summary: Get an order
+      tags: [store]
+      security:
+        - oAuth2: [store:read]
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '200':
+          description: Order found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'

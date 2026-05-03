@@ -1,0 +1,38 @@
+{
+  "name": "openapi2insomnia",
+  "version": "0.1.0",
+  "description": "Convert OpenAPI 3.0.x specs to Insomnia v5 collections",
+  "type": "module",
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "bin": {
+    "openapi2insomnia": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@apidevtools/swagger-parser": "^12.1.0",
+    "chalk": "^5.3.0",
+    "commander": "^14.0.0",
+    "js-yaml": "^4.1.0",
+    "zod": "^4.3.0"
+  },
+  "license": "LGPL-3.0-or-later",
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^25.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^6.0.0",
+    "vite": "^6.0.0",
+    "vitest": "^4.1.0"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "minimal_endpoints": true,
+  "generate_oneOf_anyOf": false,
+
+  "environments": [
+    {
+      "name": "DEV",
+      "base_url": "https://dev.petstore.example.com/v1",
+      "target_folder": "tests/fixtures/collections/minimal",
+      "microcks_headers": false,
+      "read_only": false,
+      "has_scopes": false,
+      "application_token": false,
+      "number_of_scopes": 0
+    }
+  ]
+}
