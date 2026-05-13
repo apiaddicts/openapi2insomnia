@@ -1,5 +1,5 @@
 {
-  "name": "@apiaddicts/openapi2insomnia",
+  "name": "@apiaddict/openapi2insomnia",
   "version": "1.0.0",
   "description": "Convert OpenAPI 3.0.x specs to Insomnia v5 collections",
   "type": "module",
