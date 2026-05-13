@@ -1,6 +1,6 @@
 {
-  "name": "openapi2insomnia",
-  "version": "0.1.0",
+  "name": "@apiaddicts/openapi2insomnia",
+  "version": "1.0.0",
   "description": "Convert OpenAPI 3.0.x specs to Insomnia v5 collections",
   "type": "module",
   "packageManager": "pnpm@9.0.0",
@@ -8,10 +8,33 @@
     "node": ">=20.0.0",
     "pnpm": ">=9.0.0"
   },
+  "files": [
+    "dist"
+  ],
   "bin": {
-    "openapi2insomnia": "dist/index.js"
+    "o2i": "dist/index.js"
+  },
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "keywords": [
+    "openapi",
+    "insomnia",
+    "converter",
+    "cli",
+    "openapi3",
+    "insomnia-collection"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apiaddicts/openapi2insomnia"
+  },
+  "homepage": "https://github.com/apiaddicts/openapi2insomnia",
+  "bugs": {
+    "url": "https://github.com/apiaddicts/openapi2insomnia/issues"
   },
   "scripts": {
+    "prepublishOnly": "pnpm build",
     "build": "tsup",
     "dev": "tsup --watch",
     "test": "vitest run",

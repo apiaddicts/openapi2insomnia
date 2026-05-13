@@ -1,4 +1,4 @@
-# openapi2insomnia
+# 🛠️ Openapi2Insomnia ![Release](https://img.shields.io/badge/release-1.0.x-purple) ![OpenApi](https://img.shields.io/badge/-openapi-%23Clojure?style=flat&logo=openapiinitiative&logoColor=white) ![Insomnia](https://img.shields.io/badge/Insomnia-4000BF?style=flat&logo=insomnia&logoColor=white) [![NPM](https://img.shields.io/badge/npm-%23CB3837.svg?style=flat&logo=npm&logoColor=white)](https://www.npmjs.com/package/openapi2insomnia)
 
 Converts an OpenAPI 3.0.x specification into an Insomnia v5 collection ready to import and run tests.
 
@@ -9,12 +9,18 @@ Generates one test case (TC) per operation response code — base success TC, pe
 ## Requirements
 
 - Node.js >= 20
-- pnpm >= 9
+- pnpm >= 9 (development only)
 
 ## Installation
 
 ```bash
-git clone https://github.com/yistux/openapi2insomnia
+npm install -g openapi2insomnia
+```
+
+### Development setup
+
+```bash
+git clone https://github.com/apiaddicts/openapi2insomnia
 cd openapi2insomnia
 pnpm install
 pnpm build
@@ -23,6 +29,14 @@ pnpm build
 ---
 
 ## Usage
+
+### Installed from npm
+
+```bash
+o2i convert -i <path|url> [options]
+```
+
+### Local development
 
 ```bash
 node dist/index.js convert -i <path|url> [options]
@@ -40,16 +54,16 @@ node dist/index.js convert -i <path|url> [options]
 
 ```bash
 # Output to stdout
-node dist/index.js convert -i openapi.yaml
+o2i convert -i openapi.yaml
 
 # Output to a file
-node dist/index.js convert -i openapi.yaml -o collection.yaml
+o2i convert -i openapi.yaml -o collection.yaml
 
 # With config (generates one file per environment)
-node dist/index.js convert -i openapi.yaml -c o2i.config.json
+o2i convert -i openapi.yaml -c o2i.config.json
 
 # From a remote URL
-node dist/index.js convert -i https://api.example.com/openapi.yaml -o collection.yaml
+o2i convert -i https://api.example.com/openapi.yaml -o collection.yaml
 ```
 
 ---
