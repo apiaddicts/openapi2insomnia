@@ -1,4 +1,4 @@
-# 🛠️ Openapi2Insomnia ![Release](https://img.shields.io/badge/release-1.0.x-purple) ![OpenApi](https://img.shields.io/badge/-openapi-%23Clojure?style=flat&logo=openapiinitiative&logoColor=white) ![Insomnia](https://img.shields.io/badge/Insomnia-4000BF?style=flat&logo=insomnia&logoColor=white) [![NPM](https://img.shields.io/badge/npm-%23CB3837.svg?style=flat&logo=npm&logoColor=white)](https://www.npmjs.com/package/openapi2insomnia)
+# 🛠️ Openapi2Insomnia ![Release](https://img.shields.io/badge/release-1.0.x-purple) ![OpenApi](https://img.shields.io/badge/-openapi-%23Clojure?style=flat&logo=openapiinitiative&logoColor=white) ![Insomnia](https://img.shields.io/badge/Insomnia-4000BF?style=flat&logo=insomnia&logoColor=white) [![NPM](https://img.shields.io/badge/npm-%23CB3837.svg?style=flat&logo=npm&logoColor=white)](https://www.npmjs.com/package/@apiaddicts/openapi2insomnia)
 
 Converts an OpenAPI 3.0.x specification into an Insomnia v5 collection ready to import and run tests.
 
